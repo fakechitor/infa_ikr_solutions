@@ -5,16 +5,16 @@ def f(x, a, b, c):
     return a * x ** 2 + b * x + c
 
 
-Xmin = -2
-Xmax = 3
+x_min = -2
+x_max = 3
 N = 25
 A, B, C = -1.5, 2, 0.5
 
 x = []
 y = []
-h = abs(Xmax - Xmin) / (N - 1)
+h = abs(x_max - x_min) / (N - 1)
 for i in range(N):
-    x.append(Xmin + i * h)
+    x.append(x_min + i * h)
     y.append(f(x[i], A, B, C))
 
 plt.figure('График')
