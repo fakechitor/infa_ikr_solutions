@@ -26,6 +26,7 @@ a = -0.5
 b = 0
 X0 = -0.5
 
+# тут вывод более простой, если тот формат вывода некритичен, можешь этот лучше использовать, он намного легче как будто
 roots_fsolve = scipy.optimize.fsolve(f, X0)[0]
 print("fsolve:", roots_fsolve, "f(root):", f(roots_fsolve))
 roots_bisect = scipy.optimize.bisect(f, a, b)
