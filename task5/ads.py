@@ -5,64 +5,64 @@ from math import pi, sqrt
 def f(x):
     return 1 / (1 - x + x ** 2)
 
-def left_rect(f, a, b, n):
-    h = (b - a) / n
+def left_rect(n):
     s = 0
+    h = (b - a) / n
     for i in range(n):
         s += f(a + i*h)
     return s * h
 
-def right_rect(f, a, b, n):
-    h = (b - a) / n
+def right_rect(n):
     s = 0
-    for i in range(1, n+1):
+    h = (b - a) / n
+    for i in range(n):
         s += f(a + i*h)
     return s * h
 
-def middle_rect(f, a, b, n):
-    h = (b - a) / n
+def middle_rect(n):
     s = 0
+    h = (b - a) / n
     for i in range(n):
         s += f(a + (i+0.5)*h)
     return s * h
 
-def trapezoid(f, a, b, n):
+def trapezoid(n):
     h = (b - a) / n
     s = 0.5*(f(a) + f(b))
     for i in range(1, n):
         s += f(a + i*h)
     return s * h
 
-def simpson(f, a, b, n):
+
+def simpson(n):
     if n % 2 == 1:
         n += 1
     h = (b - a) / n
     s = f(a) + f(b)
-    for i in range(1, n, 2):
-        s += 4 * f(a + i*h)
-    for i in range(2, n-1, 2):
-        s += 2 * f(a + i*h)
+    for i in range(1, n):
+        if i % 2 == 1:
+            s += 4 * f(a + i * h)
+        else:
+            s += 2 * f(a + i * h)
     return s * h / 3
 
 # Метод для подсчета с учетом погрешности
-def integrate_with_precision(method, f, a, b):
+def integrate_with_precision(method):
     n = 2
-    prev = method(f, a, b, n)
+    prev = method(n)
     while True:
         n *= 2
-        curr = method(f, a, b, n)
+        curr = method(n)
         if abs(curr - prev) < eps:
             return curr, n
         prev = curr
 
 # Метод для подсчета значений и вывода в консоль
 def count_with_method(method, name):
-    value, n_used = integrate_with_precision(method, f, a, b)
+    value, n_used = integrate_with_precision(method)
     abs_err = abs(exact - value)
     rel_err = abs_err / exact
     print(f"{name:20} {value:<12.6f} {abs_err:<12.6f} {rel_err:<12.2e} {n_used}")
-
-
 
 a, b = 0, 1 # границы
 eps = 1e-6 # заданная погрешность
